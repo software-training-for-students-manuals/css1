@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html>
+    <!-- 
+WELCOME USER! You've reached the source code for a manual created by STS. If you plan on updating or editing this manual, then you're in the right place!
+
+Before editing this manual, please read through the manual editing guide at https://sts.doit.wisc.edu/manuals/manual-editing-guide/ and follow its recommendations. It is important that we adhere to the conventions set in the guide in order to maintain quality and consistency across all manuals.
+
+A few things to note:
+
+* In order to have a working preview with accurate CSS and functional JavaScript, you will need a copy of the /master-files folder in the same parent directory as the folder with your manual editing files in it, e.g. if you have a folder on your desktop "STS Manuals", and you're editing the Excel 1 manual in the "excel1" folder and the Photoshop 1 folder in the "photoshop1" folder, you will need to have the "master-files" folder in "STS Manuals" as well, since the manual files link to the CSS/Javascript using relative links. Your folder will look like this: 
+
+├STS Manuals 
+├╴╴excel1
+├╴╴╴╴╴images
+├╴╴╴╴╴class_files
+├╴╴master-files
+├╴╴photoshop1
+├╴╴╴╴╴images
+├╴╴╴╴╴class_files
+
+
+* Manuals should be arranged into Topics, which are enclosed in the <section class="topic"> tag, and followed immediately by an <h1> tag with the topic name in it, e.g.
+
+<section class="topic">
+<h1>Topic name</h1>
+<p>Neat and helpful information goes here</p>
+</section>
+
+The <section class="topic"> and following <h1> element are how the manual's JavaScript automagically builds the Topics outline and creates the links, so if they are not there, the manual will be without a table of contents and its friends will probably make fun of it (which is decidedly not cool).
+
+* Unless you are changing the contents of the <title></title> tag, you should not have to touch the <head> portion of this document (unless instructed to do so). This tag connects the HTML to the CSS and JavaScript that keep the manual functioning. Look for the comment tag that says "MAIN CONTENT", and you may edit there.
+
+
+Good luck, and have fun!
+
+-->
+
+    <head>
+
+        <!-- Manual title -->
+        <title>CSS 1</title>
+        <meta charset="utf-8">
+        <meta name="description" content="Software manual provided by Software Training for Students at the University of Wisconsin.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel='stylesheet' id='uwmadison-fonts-css' href='https://brand.wisc.edu/content/themes/uw-theme/dist/fonts/uw160/fonts.css?ver=1.1.1' type='text/css' media='all' />
+        <link rel="stylesheet" type="text/css" href="../master-files/css/stylesheet.css">
+        <script src="../master-files/highlight.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="../master-files/smooth-scroll.js"></script>
+        <script src="../master-files/primary-functions.js"></script>
+        <script src="../master-files/ga.js"></script>
+    </head>
+
+    <body>
+        <!-- begin front page -->
+
+        <div class="manual-front-page">
+            <div id="coverpage-title">
+                <h1>CSS 1</h1>
+                <h2>Selectors and Syntax for Styling Web Pages</h2>
+            </div>
+            <div id="about-page"></div>
+            <div id="outline"></div>
+        </div>
+        <!-- BEGIN MAIN CONTENT -->
+        <section class="topic">
+            <h1 class="no-top-margin">Introduction</h1>
+            <h2>What is CSS?</h2>
+            <p>Cascading Style Sheets (CSS) is a language primarily used on the web to add <em>style</em> to an HTML document. We can write CSS to change the color, font, positioning, and size of different elements within our document.</p>
+            <p>In other words, HTML allows us to structure the content of a webpage, while CSS allows us to change the look and appearance of the content. For example, suppose I have the following written in my HTML document:</p>
+            <pre><code>&lt;h2&gt;San Junipero&lt;/h2&gt;</code></pre>
+            <p>This will add "San Junipero" to our webpage, and mark it as a second level heading. When rendered in the web browser, by default it will look like the following:</p>
+            <div class="centered-image-small border"><img src="images/intro-1.png" alt="The words San Junipero, styled with the default browser style of black text in Times New Roman on a white background"></div>
+            <p>However, with a bit of CSS applied, our heading could look like the following:</p>
+            <div class="centered-image-small"><img src="images/intro-2.png" alt="The text San Junipero styled in a pink script font on a black background"></div>
+            <p>CSS is a vast and comprehensive language. This manual is meant to be an introduction to the language, and give you the essential knowledge necessary to begin styling your own webpages. If you are looking to further your skills beyond this manual, feel free to check out our CSS 2 manual.</p>
+            <h2>Prerequisites and Requirements</h2>
+            <ul>
+                <li>
+                    <p>General knowledge of HTML</p>
+                </li>
+                <li>
+                    <p>Familiarity with the internet and web browsers</p>
+                </li>
+            </ul>
+            <p>This course will build upon the content taught in our HTML course. If you are not already familiar with HTML and the essentials of how the web works, we recommend reading through our HTML manual before proceeding.</p>
+        </section>
+        <section class="topic">
+            <h1>Basic CSS Structure</h1>
+            <h2>Selectors, Properties, and Values</h2>
+            <p>Before we learn to add CSS to a webpage, we will learn its basic structure.</p>
+            <p>CSS is written as a series of <em>rules</em>. Each rule provides information as to how the content should be styled. Rules are typically grouped together, and follow the structure below:</p>
+            <pre><code>
+selector {
+    property: value;
+    property: value;
+    property: value;
+}            </code></pre>
+            <ul>
+                <li>
+                    <p>The <strong>selector</strong> is the object or container on the page you would like to change. For example, if we wanted to select all <span class="type-text">&lt;p&gt;</span> elements on the page, we could use the selector <span class="type-text">p</span>. If we wanted to select all <span class="type-text">&lt;h2&gt;</span> elements, we could use the selector <span class="type-text">h2</span>.</p>
+                </li>
+                <li>
+                    <p>The <strong>property</strong> is the feature we would like to change about the object. This can be the size, color, shape, or positioning of the object. We will walk through a series of different properties later in this manual.</p>
+                </li>
+                <li>
+                    <p>The <strong>value</strong> is the value assigned to the property. For example, if we are changing the color of an object to orange, the property would be <em>color</em>, and the value of that property would be <em>orange</em>.</p>
+                </li>
+            </ul>
+            <p>Note that the punctuation is important. The curly braces indicate a list of <span class="type-text">property:value</span> pairs. The colon separates a property from its values. The semicolon indicates the end of a <span class="type-text">property:value</span> pair so that another may be added to the list. Like HTML, extra whitespace is ignored in CSS. This allows us to use whitespace to make our CSS code more readable.</p>
+            <h2>Example</h2>
+            <p>Here is a small snippet of CSS code. We will walk through this code line-by-line to gain a better understanding of how CSS works.</p>
+            <pre><code>
+h1 { 
+    color: blue;
+    font-size: 16px;
+}
+
+p {
+    margin-top: 16px;
+    font-style: oblique;
+}
+
+body {
+    width: 600px;
+}
+            </code></pre>
+            <p>In this example, we have three CSS statements. The first statement uses <span class="type-text">h1</span> as its selector, meaning it will affect all heading elements, or <span class="type-text">&lt;h1&gt;</span> tags on the webpage. </p>
+            <p>Inside this statement there are two <strong>rules</strong>. The first one will change the text color to blue, and the second one will change the font size of the headings to 16px.</p>
+            <p>By default, our heading would look similar to the image on the left. However, with our CSS rules applied, our heading will change color and size to appear like the image on the right:</p>
+            <div class="sidebyside-image-small border"> 
+                <img src="images/example-1.png" alt="Heading text in the default browser style of black 24 pixel text on a white background"> <img src="images/example-2.png" alt="Heading text styled in blue with 16 pixel font">
+            </div>
+            <p>In the second statement, we see that all <span class="type-text">&lt;p&gt;</span>, or paragraph elements are given extra spacing (a margin) on top. All text within <span class="type-text">&lt;p&gt;</span> elements is also italicized (oblique).</p>
+            <p>Finally, the third statement will set the width of the entire webpage to 600px, by setting the width of the <span class="type-text">&lt;body&gt;</span> element. As we learned in HTML, the <span class="type-text">&lt;body&gt;</span> element contains the entire webpage.</p>
+        </section>
+        <section class="topic">
+            <h1>Setting up a Workspace</h1>
+            <p>To edit our HTML/CSS, we will set up the same workspace we used in our HTML course manual.</p>
+            <ol class="instruction-list">
+                <li>
+                    <p>Navigate to the class files folder, and open the <span class="type-text">unfinished-website</span> folder.</p>
+                    <div class="centered-image-large border"><img src="images/workspace-1.png" alt="A screenshot from MacOS showing icons of folders and HTML files"></div>
+                    <p>This folder contains the unfinished website we will be working on throughout the rest of this manual. The <span class="type-text">finished-website-example</span> folder contains a completed version of the website as a reference.</p>
+                </li>
+                <li>
+                    <p>Right click on the <span class="type-text">index.html</span> file, then choose <span class="type-text">Open With</span> to open it with your favorite text editor.</p>
+                    <div class="centered-image-small border"><img src="images/workspace-4.png" alt="Screenshot from MacOS showing the context menu option to Open With"></div>
+                    <div class="side-image-small"><img src="images/workspace-2.png" alt="The icon for TextWrangler"></div>
+                    <p>We will be using TextWrangler, a text editor for Mac and Windows machines. If you'd like to download TextWrangler you may find it for free online.</p>
+                </li>
+                <li>
+                    <p>Right click on the file again and choose to open it with a web browser. We will be using Google Chrome.</p>
+                </li>
+                <li>
+                    <p>Feel free to place the two windows side-by-side, similar to what is pictured below.</p>
+                    <div class="full-width-image"><img src="images/workspace-3.png" alt="Screenshot of an editor window alongside the browser window"></div>
+                    <p>With this setup, we are able to edit our HTML/CSS directly in our text editor on the left, while previewing it in a web browser on the right.</p>
+                </li>
+            </ol>
+        </section>
+        <section class="topic">
+            <h1>Implementing CSS</h1>
+            <p>There are three ways in which we can add CSS to our webpage: </p>
+            <p><strong>Inline Styling:</strong></p>
+            <pre><code>
+&lt;h1 style="color:white;"&gt;Text&lt;/h1&gt;
+            </code></pre>
+            <p>
+                <strong>Internal stylesheet:</strong>
+            </p>
+            <pre><code>
+&lt;style&gt;
+    h1 {
+        color: white;
+    }
+&lt;/style&gt;
+            </code></pre>
+            <p>
+                <strong>External stylesheet:</strong>
+            </p>
+            <pre><code>
+&lt;link rel="stylesheet" href="stylesheet.css"&gt;
+            </code></pre>
+            <p>Let's look at each of these in further detail now.</p>
+            </div>
+
+        <h2>Inline Styling</h2>
+        <p>CSS rules can be directly added to individual HTML elements using <strong>internal styling</strong>. By adding a <span class="type-text">style</span> attribute to an element, we can write CSS specifically for that element.</p>
+        <p>The example below will change the color of the text to green, and give it center alignment:</p> 
+        <pre><code>&lt;p style = "color: green; text-align: center"&gt;This is my paragraph text.&lt;/p&gt;</code></pre>
+
+        <p>These styling rules will only affect this specific element on the webpage, and no other elements around it. This is useful for individual elements that need customized styling.</p>
+        <p>Now, we will add inline styling to our own webpage.</p>
+        <ol class="instruction-list">
+            <li>
+                <p>At the bottom of our <span class="type-text">index.html</span> document, find the <span class="type-text">&lt;footer&gt;</span> element.</p>
+                <pre><code>
+&lt;footer&gt;
+    &lt;p&gt;&amp;copy;2017 Fuzzy and the Blue Tones. All Rights Reserved&lt;/p&gt;
+&lt;/footer&gt;                    
+                </code></pre>
+            </li>
+            <li>
+                <p>Add the following inline CSS:</p>
+                <pre><code>
+&lt;footer style="text-align: center; color: lightgray;"&gt;
+    &lt;p&gt;&amp;copy; 2017 Fuzzy and the Blue Tones. All Rights Reserved&lt;/p&gt;
+&lt;/footer&gt;                    
+                </code></pre>
+            </li>
+            <li>
+                <p>Save the file, then refresh the web browser to view the changes. The footer of your website should now look like the following:</p>
+                <img class="center" src="images/implementing-inline-3.png" alt="Text in the document's footer element shown with a light gray color">
+                <p>Note that if you apply inline styling to an element in HTML, that styling will also be applied to any element inside of it. In our example, we only had one <span class="type-text">&lt;p&gt;</span> (paragraph) element inside of our footer.</p>
+            </li>
+            <li>
+                <p>Open <span class="type-text">albums.html</span> and <span class="type-text">tour.html</span> from our <span class="type-text">unfinished-website</span> folder, and update the <span class="type-text">&lt;footer&gt;</span> on each page to match.</p>
+            </li>
+        </ol>
+        <h2>Internal Style Sheets</h2>
+        <p>An <strong>internal style sheet</strong> is CSS code that is added directly into the <span class="type-text">&lt;head&gt;</span> of your HTML document. There is a special <span class="type-text">&lt;style&gt;</span> tag that opens and closes an internal style sheet. Below is an example of an internal style sheet.</p>
+        <pre><code>&lt;style&gt;
+        a {
+            font-family: 'Arial', sans-serif;
+        }
+        &lt;/style&gt;</code></pre>
+        <p>The code above will change the font of all links in the page to "Arial". Remember that internal style sheets must be within the <span class="type-text">&lt;head&gt;</span> of the document.</p>
+        <h2>External Style Sheets</h2>
+        <p>An <strong>external style sheet</strong> is a completely separate document with styling rules, that is then linked to multiple HTML files.</p>
+        <p>The best way to take advantage of the re-usability of CSS styles is to use external style sheets. By moving style rules outside of the HTML document, the style rules can be used multiple times across multiple web pages. Changing the entire look of a website is simply a matter of changing the rules of one external style sheet, rather than several internal style sheets. </p>
+        <p>Linking a document to an external style sheet is done by adding a <span class="type-text">&lt;link&gt;</span> tag to the <span class="type-text">&lt;head&gt;</span> of the document. Below is an example of what the link tag looks like.</p>
+        <pre><code>&lt;link rel = "stylesheet" href = "stylesheet.css"/&gt;</code></pre>
+        <p>We will now create an external style sheet to use for our own website.</p>
+        <ol class="instruction-list">
+            <li>
+                <p>In TextWrangler, go to the menu bar and choose <span class="type-text">File &gt; New &gt; Text Document</span>.</p>
+                <img class="center" src="images/implementing-external-1.png" alt="The File menu of TextWrangler showing the menu option New">
+            </li>
+            <li>
+                <p>Once you have created a new document, save it as <span class="type-text">stylesheet.css</span> to the <span class="type-text">resources</span> folder for our website. Your website's root folder should now look similar to the following:</p>
+                <img class="center" src="images/implementing-external-2.png" alt="Screenshot showing the files in the website's root folder">
+            </li>
+            <li>
+                <p>In the <span class="type-text">&lt;head&gt;</span> of each webpage, add the following snippet of code to link the external style sheet.</p>
+                <pre><code>
+&lt;!-- link to external stylesheet --&gt; 
+&lt;link rel="stylesheet" href="resources/stylesheet.css"&gt;
+                </code></pre>
+                <p>The &lt;head&gt; tag should look like the following: </p>
+                <img src="images/implementing-external-3.png" alt="Screenshot showing an external stylesheet being linked">
+            </li>
+        </ol>
+        <p>Now that we've linked our external style sheet to each webpage, whatever CSS rules we write here will affect the entire website. Go ahead and try it out with some of the CSS rules we've learned so far!</p>
+        <h2>Style Sheet Cascade</h2>
+        <p>There is no limit to the number CSS style rules you can create to format your page. Furthermore, an HTML document can contain a combination of inline styles, internal style sheets, and external style sheets. A problem arises however when you have multiple style rules that have the same selector.</p>
+        <p>When multiple rules conflict with one another, which rule is used?</p>
+        <p>The priority of style rules is usually referred to as <strong>the cascade</strong>. The first thing to note is that style sheets are read top to bottom. Rules with the same selector that appear later in a style sheet override rules of that selector that appear earlier. But what if rules with the same selectors are in different style sheets? If you have a rule that selects paragraph elements in an external style sheet and another rule that selects paragraph elements in an internal style sheet, there is an order of priority that browsers typically follow in selecting which rule to use. The priorities in order from lowest to highest are as follows:</p>
+        <ol>
+            <li>
+                <p>Inline styles</p>
+            </li>
+            <li>
+                <p>Internal style sheets</p>
+            </li>
+            <li>
+                <p>External style sheets</p>
+            </li>
+            <li>
+                <p>Browser defaults</p>
+            </li>
+        </ol>
+        <p>Therefore the internal rule takes precedence in the paragraph case above. This is a simplified version of what actually goes on when interpreting which rules are chosen, but will suffice for our purposes.</p>
+
+        </section>
+    <section class="topic">
+        <h1>Properties and Values</h1>
+        <p>In previous exercises, we have pre-written CSS code for you to copy. In this section, we will outline the most common properties in CSS, and how to edit them for yourself. Before we do this, we need to talk about measurements and color.</p>
+        <h2>Units of Measure</h2>
+        <p>Often, while writing CSS, you will need to define the width, height, size, or spacing of an element. When writing measurements, we have many different units of measure to choose from. Below is a table of the most commonly used units of measure.</p>
+        <table>
+            <tr>
+                <th>Unit</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><span class="type-text">%</span></td>
+                <td>A percentage value that is relative to another value, typically to an enclosing element.</td>
+            </tr>
+            <tr>
+                <td><span class="type-text">em</span></td>
+                <td>A measurement that is relative to the size of a given font. For example, if your font size is set to 16px, then one "em" is 16px.</td>
+            </tr>
+            <tr>
+                <td><span class="type-text">in</span></td>
+                <td>A measurement in inches.</td>
+            </tr>
+            <tr>
+                <td><span class="type-text">pt</span></td>
+                <td>A measurement in points. One point is defined as 1/72nd of an inch.</td>
+            </tr>
+            <tr>
+                <td><span class="type-text">px</span></td>
+                <td>A measurement in pixels. Due to varying pixel densities on computer displays, one pixel in CSS may not translate to one pixel on the user's display.</td>
+            </tr>
+        </table>
+        <p>Feel free to experiment with different units of measure when styling your own website. For the rest of this manual, we will use pixels as our primary unit of measure, as they are the easiest to understand.</p>
+        <h2>Colors</h2>
+        <p>There are three main ways we can represent colors in CSS. First, we can represent colors as words, like in the example below. You can find a full list of all CSS color keywords online, such as <a href="https://www.w3schools.com/cssref/css_colors.asp" target="_blank"> this one from the W3 Schools web site.</a></p>
+        <pre><code>
+p {
+    color: orange;
+}
+            </code></pre>
+        <p>The second way of writing colors is by using a hexadecimal representation. Essentially, every color on the spectrum has a six character representation, called a <strong>hex code</strong>.</p>
+        <p>The best way to find a color's hex code is by using a color picker. You can easily find a color picker by going to <a href="https://google.com">Google</a> and searching for "color picker".</p>
+        <img src="images/properties-1.png" class="center" alt="Screenshot showing a green color and its corresponding RGB value">
+        <p>The green color above is represented as <span class="type-text">#A8D86E</span>, so in our CSS we would write:</p>
+        <pre><code>
+p {
+    color: #A8D86E;
+}
+       </code></pre>
+
+        <p>The third way to represent color is using syntax called <strong>HSL</strong>, which stands for <em>hue</em>, <em>saturation</em>, and <em>lightness</em>. </p>
+
+        <p><strong>Hue</strong> is the overall "color" of the color and the value indicates the color's location around the color wheel in degrees, using values from 0 to 360. Reds start 0, and move through the color wheel. In the example above, which is a light green, the hue value is 87.</p>
+        <p><strong>Saturation</strong> is how much of the hue is present in the color. It is a percentage value, from 0% to 100% (note that it requires the % sign to work correctly). 0% saturation means none of the hue is present, and 100% means the hue is as strong as possible.</p>
+        <p><strong>Lightness</strong> is how light the color appears, using values from 0% to 100%. 0% will appear fully black, and 100% will appear fully white.</p>
+
+        <p>Writing the value above in HSL notation would look like the following:</p>
+        <pre><code>
+p {
+    color: hsl(87, 58%, 64%);
+}           
+       </code></pre>
+
+        <h2>Essential Properties</h2>
+        <p>Now that we're familiar with how to write measurements and color, we're going to implement some commonly used CSS properties into our website.</p>
+        <table>
+            <tr>
+                <th>Property</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><span class="type-text">width</span></td>
+                <td>Defines an exact width for an element.</td>
+            </tr>
+            <tr>
+                <td><span class="type-text">height</span></td>
+                <td>Defines an exact height for an element.</td>
+            </tr>
+            <tr>
+                <td><span class="type-text">max-width</span></td>
+                <td>The maximum width an element can have, for example to prevent a text element from expanding to the full page width (and making it hard to read) when the browser window is open full-screen on a wide monitor.</td>
+            </tr>
+            <tr>
+                <td><span class="type-text">max-height</span></td>
+                <td>The maximum height an element can have.</td>
+            </tr>
+            <tr>
+                <td><span class="type-text">font-size</span></td>
+                <td>Defines the size of a font used inside a specific element.</td>
+            </tr>
+            <tr>
+                <td><span class="type-text">line-height</span></td>
+                <td>Sets the vertical spacing between lines of text in an element.</td>
+            </tr>
+            <tr>
+                <td><span class="type-text">text-align</span></td>
+                <td>Allows you to align text to the left, right, center, or justified.</td>
+            </tr>
+            <tr>
+                <td><span class="type-text">color</span></td>
+                <td>Changes the color of text inside the element.</td>
+            </tr>
+            <tr>
+                <td><span class="type-text">background-color</span></td>
+                <td>Changes the background color of an element.</td>
+            </tr>
+        </table>
+        <ol class="instruction-list">
+            <li>
+                <p>Add a <span class="type-text">max-width</span> property to the <span class="type-text">&lt;body&gt;</span> to set a maximum width for the webpage. Set the background color by using the <span class="type-text">background-color</span> color property.</p>
+                <img class="center border" src="images/properties-2.png" alt="Screenshot showing the body element having max-width set at 800 pixels and background color f7f7f7">
+            </li>
+            <li>
+                <p>Add the <span class="type-text">color</span> property for headings (<span class="type-text">&lt;h1&gt;</span>) and links (<span class="type-text">&lt;a&gt;</span>). Set the <span class="type-text">font-size</span> for the main heading to 36px, and center the text using <span class="type-text">text-align</span>.</p>
+                <p>Change the <span class="type-text">line-height</span> for paragraph text to be 150%. Remove the underline from links (<span class="type-text">&lt;a&gt;</span>) by setting the <span class="type-text">text-decoration</span> property.</p>
+                <img class="center border" src="images/properties-3.png" alt="Screenshot showing properties being set including text-decoration of none for the anchor element">
+            </li>
+            <li>
+                <p>Finally, set the <span class="type-text">background-color</span> for our navigation bar (<span class="type-text">&lt;nav&gt;</span>), and center the text within it.</p>
+                <img class="center border" src="images/properties-4.png" alt="Screenshot showing the background color being set to 2c3e50 for the nav element">
+            </li>
+            <li>
+                <p>When you're finished, save the style sheet, and refresh the web browser to view your changes.</p>
+            </li>
+        </ol>
+    </section>
+    <section class="topic">
+        <h1>Selectors</h1>
+        <p>In this next section, we will discuss how to create more specific selectors in CSS.</p>
+        <h2>Selecting Multiple Elements</h2>
+        <p>To select multiple elements at the same time in CSS, we can list the selectors separated by a comma.</p>
+        <pre><code>a, p {
+          color: orange;
+        }</code></pre>
+        <p>In the example above, we are selecting <span class="type-text">&lt;a&gt;</span> and <span class="type-text">&lt;p&gt;</span> elements, then changing their color to orange.</p>
+        <h2>Nested Selections</h2>
+        <p>We can also select elements <em>within</em> other elements, in order to make more specific selections. To select elements within other elements, we list their selectors, separated by a space.</p>
+        <p>In the example below, we select <strong>only</strong> paragraph elements that are inside the footer of the page.</p>
+        <pre><code>footer p {
+          color: orange;
+        }</code></pre>
+        <p>In the next example, we select <strong>only</strong> links that are nested inside of paragraphs.</p>
+        <pre><code>p a {
+          color: orange;
+        }</code></pre>
+        <p>Now let's practice with our own webpage.</p>
+        <ol class="instruction-list">
+            <li>
+                <p>In the <span class="type-text">&lt;header&gt;</span> of our webpage, we have a banner image that stretches larger than the width of the page. We would like to change the size of this image without affecting other images on our website.</p>
+                <p>Add the following code to your style sheet:</p>
+                <img class="center border" src="images/selectors-1.png" alt="Screenshot showing image tags inside the header tag being set to 100% width">
+            </li>
+            <li>
+                <p>Change the color of links within the navigation bar with the following code:</p>
+                <img class="center border" src="images/selectors-2.png" alt="Screenshot showing anchor elements inside nav elements being set to color white">
+            </li>
+        </ol>
+        <h2>Pseudo Classes</h2>
+        <p>Pseudo-classes provide a way to add special effects to certain elements. The most commonly encountered pseudo-classes are found on anchor tags (links).</p>
+        <p>For example, if I would like to change the appearance of a link while my mouse is hovered over it, I can use the selector <span class="type-text">a:hover</span>. If I would like to change the appearance of a link after the link has been clicked on, I can use the selector <span class="type-text">a:visited</span>.</p>
+        <p>Pseudo classes are most commonly used with links, buttons, and forms on a webpage. Used appropriately, they can enhance the user experience. Anchor tags (links) have four common pseudo-classes: <span class="type-text">link</span>, <span class="type-text">active</span>, <span class="type-text">visited</span>, and <span class="type-text">hover</span>.</p>
+        <ul>
+            <li>
+                <p>The <span class="type-text">link</span> pseudo-class refers to the unvisited link.</p>
+            </li>
+            <li>
+                <p>The <span class="type-text">active</span> pseudo-class refers to highlighted elements, which happens if a user is tabbing through links on a page.</p>
+            </li>
+            <li>
+                <p>The <span class="type-text">visited</span> pseudo-class refers to links that have been clicked on and visited.</p>
+            </li>
+            <li>
+                <p>The <span class="type-text">hover</span> pseudo-class refers to links when the cursor is hovering over them.</p>
+            </li>
+        </ul>
+        <p>We will now practice on our own webpage.</p>
+        <ol class="instruction-list">
+            <li>
+                <p>First, we will change the color of links on our webpage when the cursor his hovered over them.</p>
+                <img class="center border" src="images/selectors-3.png" alt="Changing the color of anchor links on hover">
+                <p>The <span class="type-text">transition</span> property applies a fade transition to the link when the mouse hovers over it. This property is optional, but adds a nice touch.</p>
+            </li>
+            <li>
+                <p>Next, we can enhance our navigation bar in a similar way.</p>
+                <img class="center border" src="images/selectors-4.png" alt="Changing the hover states on anchor elements in the nav element">
+            </li>
+        </ol>
+        <p>Your webpage should now look similar to the following:</p>
+        <img class="center border" src="images/selectors-5.png" alt="Screenshot showing the changes to the elements' CSS">
+        <h2>Classes and IDs</h2>
+        <p>CSS works by naming elements on a page and adding rules which change their appearance. One way to make more specific selections is by giving specific names, or labels to elements within your page. We call these <strong>classes and IDs.</strong></p>
+        <p><strong>Classes</strong> are used for CSS rules that apply to more than one element, whereas IDs can be applied to individual elements. Below is an example of a class and ID applied to two different HTML elements. The name you choose for a class or ID is arbitrary.</p>
+        <pre><code>&lt;!-- HTML class example --&gt;
+        &lt;div class = "animals"&gt; ... &lt;/div&gt;
+        &lt;!-- HTML ID example --&gt;
+        &lt;div id = "butterfly"&gt; ... &lt;/div&gt;</code></pre>
+        <p>Finally, to select a specific class or ID in CSS, use the following format:</p>
+        <pre><code>.animals {
+        /* CSS goes here */
+        }
+        #butterfly {
+        /* CSS goes here */
+        }</code></pre>
+        <p>A class or ID can be added to any element in your HTML document, such as <span class="type-text">&lt;nav&gt;</span>, <span class="type-text">&lt;header&gt;</span>, or <span class="type-text">&lt;img&gt;</span>. Most notably they are added to <span class="type-text">&lt;div&gt;</span> tags, which are essentially containers that you may use anywhere on your page. They help you structure a webpage and style groups of elements.</p>
+        <ol class="instruction-list">
+            <li>
+                <p>Open <span class="type-text">albums.html</span> in TextWrangler. Notice that the images on this page have the class <span class="type-text">album-art</span> applied to them.</p>
+                <img class="center border" src="images/selectors-6.png" alt="screenshot showing the class named Album Art added to an image element">
+            </li>
+            <li>
+                <p>To style <em>only</em> images that are labelled as album art, write the following CSS rules:</p>
+                <img class="center border" src="images/selectors-7.png" alt="Screenshot showing the rules for the class .album-art">
+                <p>The <span class="type-text">border-radius</span> property adds a curved edge around the corners of the image.</p>
+            </li>
+        </ol>
+        <h2>Inheritance and Heirarchy</h2>
+        <p>Similar to the way rules across style sheets have certain priorities, individual rules have special priorities as well. A good rule of thumb to follow is that the more specific a selector, the higher its priority. This is why the ID tags are likely to override other CSS rules. Since IDs only refer to a single element in an HTML document, they have a very high specificity and consequently a very high priority. Likewise, classes are more specific than a tag, rules applied to a tag with a class will override rules applied to a simple tag. </p>
+        <p>Another important concept to understand is inheritance. If an element isn’t <em>specifically</em> selected, by default it will receive the same formatting as its parent element. For example, if the <span class="type-text">&lt;body&gt;</span> of a web page has a green background, <span class="type-text">&lt;p&gt;</span> elements inside the body will also have a green background, unless a more specific rule is created. We say a style rule “cascades” down to its descendant elements. </p>
+    </section>
+    <section class="topic">
+        <h1>Positioning</h1>
+        <h2>The Normal Flow</h2>
+        <p>Before jumping into positioning elements with CSS, it is important to understand how elements are positioned on the page in absence of any user-defined CSS rules.</p>
+        <p>By default, <strong>block</strong> elements stack top to bottom, while <strong>inline</strong> elements are laid out horizontally, space permitting. Some block elements you might know are divisions, headings, paragraphs, and lists. Inline elements are objects such as links, spans, images, and form inputs. So far, the entire website designed in HTML and CSS has used this method of layout.</p>
+        <img class="center border" src="images/positioning-1.png" alt="Screenshot showing block elements taking up full page width and inline elements fitting within a line of content">
+        <p>You can change whether an element is a <strong>block</strong> or <strong>inline</strong> element using the following CSS rule.</p>
+        <pre><code>element {
+        display: block;
+    }
+    element {
+        display: inline;
+    }
+    </code></pre>
+        <p>On our own website, notice how the links in the navigation bar stack on top of one another. By default, list items (<span class="type-text">&lt;li&gt;</span>) are block elements.</p>
+        <ol class="instruction-list">
+            <li>
+                <p>Change the flow of <span class="type-text">&lt;li&gt;</span> elements within our navigation bar using the following code:</p>
+                <img class="center border" src="images/positioning-8.png" alt="Changing list items in a nav element to use property inline-block">
+            </li>
+            <li>
+                <p>Refresh the webpage to view the changes. The navigation bar should now look similar to the following:</p>
+                <img class="center border" src="images/positioning-9.png" alt="Screenshot showing list items displaying inline">
+            </li>
+        </ol>
+        <h2>The Box Model</h2>
+        <p>As you may have discovered by now, every element in HTML is placed within a container, or a "box". For example, the <span class="type-text">&lt;body&gt;</span> is a "box" containing the entire webpage. Each of our navigation links are "boxes" that are inside the <span class="type-text">&lt;nav&gt;</span> "box".</p>
+        <p>Because each element is contained in this way, there are three important properties we can change for every element on the page, to change the page layout. These properties are <strong>margin, padding, and border.</strong></p>
+        <ul>
+            <li>
+                <p><strong>Margin</strong> refers to the space between the edge of the "box", and other elements on the page.</p>
+            </li>
+            <li>
+                <p><strong>Padding</strong> to the space between the content and the edge of the "box".</p>
+            </li>
+            <li>
+                <p><strong>Border</strong> refers to a border, or line wrapping around the outside of the container.</p>
+            </li>
+        </ul>
+        <p>Whether you're aware of it or not, each element on your page already has a margin, padding, and a border around its invisible "box". For more clarity, see the diagram below.</p>
+        <img class="center full-width border" src="images/positioning-2.png" alt="Visual representation of the CSS box model">
+        <p>To learn more about padding, we will look to an example.</p>
+        <ol class="instruction-list">
+            <li>
+                <p>In the <span class="type-text">box-model</span> folder in the class files, open up <span class="type-text">style.css</span> in a text editor, and open <span class="type-text">index.html</span> in a web browser.</p>
+            </li>
+            <img class="center border" src="images/positioning-3.png" alt="screenshot showing rules for padding, margin and border"></div>
+            <li>
+                <p>In the CSS file, you'll notice individual settings for margin and padding for each side of our object. There's also a border property.</p>
+                <p>Feel free to experiment with these properties, by placing in different values and seeing the result.</p>
+                <img class="center border" src="images/positioning-4.png" alt="Screenshot showing the results of the previous CSS rules">
+                <p>The gray box represents the entire area of the container. The orange represents the box border, and whitespace represents the margin.</p>
+            </li>
+        </ol>
+        <h2>Adding Margin and Padding</h2>
+        <p>Now that we are familiar with the box model, we can add margin and padding to our own website to space elements how we like. <span class="highlihgt">Take a few minutes to add the <span class = "type-text">margin</span> and <span class="type-text">padding</span> properties to different elements on your page.</span>
+        </p>
+        <p>The additions we made to our example site are listed below.</p>
+        <div class="two-up border"><img src="images/selectors-8.png" alt="Margin and padding settings on various elements in CSS"><img src="images/selectors-9.png" alt="Margin and madding for classes and elements"> </div>
+        <p>Notice how the left and right margin for the body is set to <span class="type-text">auto</span>. Setting the left and right margin to <span class="type-text">auto</span> is a common method of centering elements in CSS. By centering the body element, we are displaying our website in the center of the browser window.</p>
+        <h2>Floats</h2>
+        <p>Notice that by default, block elements stack vertically on the page. On simple pages, this is usually the desired behavior, but there are cases in which you might want two elements to sit side-by-side. For example, take a look at the following image.</p>
+        <img class="center border" src="images/positioning-6.png" alt="Screenshot showing an image floating above a paragraph of text with no text wrapping around it">
+        <p>Here we have two block elements stacked on top of one another, the pink square and some paragraph text. By applying the following CSS property, we can "float" the square to the left or right of it's parent container, allowing other content to fill the space.</p>
+        <pre><code>element {
+        float: left;
+    }
+    </code></pre>
+        <p>After our float is applied, we have the following:</p>
+        <img class="center border" src="images/positioning-5.png" alt="Image showing the same element, now with the text wrapping around it"></div>
+        <p>Notice how the paragraph text automatically fills the empty space to the right of the pink square. If we don't want the text to fill in the space left by a float, we can use the <span class="type-text">clear</span> property.</p>
+        <pre><code>element {
+      clear: both;
+    }</code></pre>
+        <p>Now, let's use the <span class="type-text">float</span> and <span class="type-text">clear</span> properties to enhance our own website.</p>
+        <ol class="instruction-list">
+            <li>
+                <p>On the albums page of our website, notice how the song lists flow underneath the album art. We can "float" the album artwork so the lists show up side-by-side with the album art.</p>
+                <img class="center border" src="images/positioning-7.png" alt="The float property with value of left added to the album art class"></div>
+            </li>
+            <li>
+                <p>We will add the <span class="type-text">clear</span> property to make sure certain block elements don't fill in the space left by a float.</p>
+                <img class="center border" src="images/positioning-10.png" alt="The clear property set to value of both on heading and footer elements">
+            </li>
+        </ol>
+    </section>
+    <section class="topic">
+        <h1>Custom Fonts</h1>
+        <p>Up until this point, we haven't changed any of the fonts on our website. As a finishing touch, we will use this section to customize our website's fonts.</p>
+        <p>Changing the font within an element in CSS is simple. You will use the <span class="type-text">font-family</span> property. There are also a number of other font properties you can change, demonstrated below.</p>
+        <pre><code>element {
+        font-family: 'Arial' sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        font-style: italic;
+        }</code></pre>
+        <p>To use a custom font, we would normally need to host it on our website, then link it in the HTML. For the sake of simplicity, we will be using an online font service called <strong>Google Fonts</strong>. Google Fonts allows users to add custom fonts to their site in a very easy way.</p>
+        <ol class="instruction-list">
+            <li>
+                <p>Visit <a href="https://fonts.google.com">Google Fonts</a>, (fonts.google.com). When there, feel free to browse and select the fonts you will add to your website.</p>
+                <p>For our example, we chose the font "Oswald" for our headings/navigation, and "Lora" for our body text.</p>
+                <img class="center border" src="images/fonts-1.png" alt="The Google Fonts interface showing a font being selected">
+            </li>
+            <li>
+                <p>Select the red plus button in the upper right corner of a font to select it. A window will pop up at the bottom of the screen containing snippets of HTML and CSS.</p>
+                <img class="center border" src="images/fonts-2.png" alt="Screenshot showing the Google Fonts embed code in use">
+            </li>
+            <li>
+                <p>The first HTML <span class="type-text">&lt;link&gt;</span> snippet will link your webpage to the font. <strong>Place the <span class="type-text">&lt;link&gt;</span> in the <span class = "type-text">&lt;head&gt;</span> of each web page.</strong> Finally, the CSS snippet shows how to apply the font to a specific element in CSS.</p>
+            </li>
+            <li>
+                <p>Use the <span class="type-text">font-family</span> property to assign the font to different elements in your style sheet. Below is what we added.</p>
+                <img class="center border" src="images/fonts-3.png" alt="Adding the font-family element using the name of the font from Google Fonts"></div>
+            </li>
+        </ol>
+        <p>If you don't wish to use Google Fonts, you may also choose a generic font that is already installed on most computers. You may find a full list of web-safe fonts online.</p>
+        <p>Congratulations! Your website is now finished. You may notice that we have yet to style the table found on the "tours" page of our website. As a bonus activity, feel free to look through the CSS of the finished website to learn how to style tables.</p>
+        <p>If all went well, our website should now look similar to the following:</p>
+        <img class="center full-width border" src="images/finished-site.png" alt="Screenshot of the finished site project including all CSS added in this workshop manual"></div>
+    </section>
+    <section class="topic">
+        <h1>Further Resources</h1>
+        <p>If you're looking to further your knowledge of CSS, Software Training for Students offers a CSS 2 class which dives into advanced CSS positioning.</p>
+        <p>You may also learn CSS through online tutorials, provided by <a href="https://www.lynda.com">Lynda.com</a>. STS provides free access to Lynda for all UW students and faculty members.</p>
+        <p>To access Lynda.com, or view our class schedule, feel free to visit <a href="www.wisc.edu/sts">wisc.edu/sts</a>.</p>
+    </section>
+    <!-- END MAIN CONTENT -->
+    </body>
+
+</html>
